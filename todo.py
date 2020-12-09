@@ -8,6 +8,13 @@ from time import strftime
 todos = {}
 
 
+def delTodo():
+    tanggal = str(cal.selection_get())
+    selectedItem = treev.focus()
+    todos[tanggal].pop(treev.item(selectedItem)['text'])
+    ListTodo()
+
+
 def ListTodo(cb=None):
     for i in treev.get_children():
         treev.delete(i)
@@ -95,7 +102,7 @@ treev.heading("2", text="Judul")
 btnAdd = tk.Button(root, text="Tambah", width=20, command=AddForm)
 btnAdd.grid(row=4, column=1, sticky="N")
 # Membuat button "Hapus"
-btnDel = tk.Button(root, text="Hapus", width=20)
+btnDel = tk.Button(root, text="Hapus", width=20, command=delTodo)
 btnDel.grid(row=4, column=2, sticky="N")
 
 # Membuat button "Load"
