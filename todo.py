@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import ttk
 from tkcalendar import Calendar
 from tkinter.scrolledtext import ScrolledText
+from tkinter import messagebox
 from time import strftime
 
 
@@ -46,7 +47,13 @@ def SaveTodos():
 def delTodo():
     tanggal = str(cal.selection_get())
     selectedItem = treev.focus()
-    todos[tanggal].pop(treev.item(selectedItem)['text'])
+
+    ms = tk.messagebox.askquestion(
+        'Delete todo', 'Yakin hapus todo?', icon='question')
+    if ms == 'yes':
+        todos[tanggal].pop(treev.item(selectedItem)['text'])
+    else:
+        tk.messagebox.showinfo('Delete todo', 'Todo batal dihapus')
     ListTodo()
 
 
