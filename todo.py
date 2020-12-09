@@ -8,6 +8,26 @@ from time import strftime
 todos = {}
 
 
+def detailTodo(cb=None):
+    win = tk.Toplevel()
+    win.wm_title("Detail todo")
+    selectedItem = treev.focus()
+    selectedIndex = treev.item(selectedItem)['text']
+    selectedTodo = todos[tanggal][selectedIndex]
+    judul = tk.StringVar(value=selectedTodo['judul'])
+    tk.Label(win, text="Tanggal:").grid(row=0, column=0, sticky="N")
+    tk.Label(win, text="{} | {}".format(tanggal, selectedTodo['waktu'])).grid(
+        row=0, column=1, sticky="E")
+    tk.Label(win, text="Judul:").grid(row=1, column=0, sticky="N")
+    tk.Entry(win, state="disabled", textvariable=judul).grid(
+        row=1, column=1, sticky="E")
+    tk.Label(win, text="Keterangan:").grid(row=2, column=0, sticky="N")
+    keterangan = ScrolledText(win, width=12, height=5)
+    keterangan.grid(row=2, column=1, sticky="E")
+    keterangan.insert(tk.INSERT, selectedTodo['keterangan'])
+    keterangan.configure(state='disabled')
+
+
 def LoadTodos():
     global todos
     f = open('mytodo.dat', 'r')
@@ -106,6 +126,7 @@ scrollBar.grid(row=0, column=3, sticky="ENS", rowspan=4)
 
 # mendesign widget di sebelah kanan calendar
 treev.configure(yscrollcommand=scrollBar.set)
+treev.bind("<Double-1>", detailTodo)
 treev['columns'] = ("1", "2")
 treev['show'] = 'headings'
 treev.column("1", width=100)
