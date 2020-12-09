@@ -8,6 +8,21 @@ from time import strftime
 todos = {}
 
 
+def LoadTodos():
+    global todos
+    f = open('mytodo.dat', 'r')
+    data = f.read()
+    f.close()
+    todos = eval(data)
+    ListTodo()
+
+
+def SaveTodos():
+    f = open('mytodo.dat', 'w')
+    f.write(str(todos))
+    f.close()
+
+
 def delTodo():
     tanggal = str(cal.selection_get())
     selectedItem = treev.focus()
@@ -106,11 +121,11 @@ btnDel = tk.Button(root, text="Hapus", width=20, command=delTodo)
 btnDel.grid(row=4, column=2, sticky="N")
 
 # Membuat button "Load"
-btnLoad = tk.Button(root, text="Load", width=20)
+btnLoad = tk.Button(root, text="Load", width=20, command=LoadTodos)
 btnLoad.grid(row=6, column=1, sticky="S")
 
 # Membuat tombol "Save"
-btnSave = tk.Button(root, text="Save", width=20)
+btnSave = tk.Button(root, text="Save", width=20, command=SaveTodos)
 btnSave.grid(row=6, column=2, sticky="S")
 
 root.mainloop()
