@@ -1,11 +1,9 @@
 import tkinter as tk
-import os.path
 from tkinter import ttk
 from tkcalendar import Calendar
 from tkinter.scrolledtext import ScrolledText
 from tkinter import messagebox
 from time import strftime
-from os import path
 
 todos = {}
 
@@ -30,12 +28,9 @@ def detailTodo(cb=None):
 
 def LoadTodos():
     global todos
-    if path.exists('mytodo.dat'):
-        f = open("mytodo.dat", "r")
-        data = f.read()
-        f.close()
-    else:
-        tk.messagebox.showinfo("Load data", "Tidak ada data yang tersimpan pada tanggal ini", icon='warning')
+    f = open("mytodo.dat", "r")
+    data = f.read()
+    f.close()
     todos = eval(data)
     ListTodo()
 
