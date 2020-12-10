@@ -96,7 +96,7 @@ def AddForm():
     keterangan = ScrolledText(win, width=12, height=5)
     keterangan.grid(row=2, column=1, columnspan=2, rowspan=4)
     tanggal = str(cal.selection_get())
-    tk.Button(win,text="Tambah",command=lambda: addTodo(win, tanggal, jam, menit, judul, keterangan),).grid(row=6, column=0)
+    tk.Button(win,text="Tambah",command=lambda: addTodo(win, tanggal, jam, menit, judul, keterangan)).grid(row=6, column=0)
 
 
 def title():
