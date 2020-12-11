@@ -48,6 +48,7 @@ def delTodo():
     ms = tk.messagebox.askquestion("Delete todo","Yakin hapus todo?",icon="question")
     if ms == "yes":
         todos[tanggal].pop(treev.item(selectedItem)["text"])
+        tk.messagebox.showinfo("Delete todo", "Todo berhasil dihapus")
     else:
         tk.messagebox.showinfo("Delete todo", "Todo batal dihapus")
     ListTodo()
@@ -85,16 +86,17 @@ def AddForm():
     jam = tk.IntVar(value=10)
     menit = tk.IntVar(value=30)
     judul = tk.StringVar(value="")
-    tk.Label(win, text="Waktu:").grid(row=0, column=0)
-    tk.Spinbox(win, from_=0, to=23, textvariable=jam, width=3).grid(row=0,column=1)
-    tk.Spinbox(win, from_=0, to=59, textvariable=menit, width=3).grid(row=0,column=2)
-    tk.Label(win, text="Judul:").grid(row=1, column=0)
-    tk.Entry(win, textvariable=judul).grid(row=1, column=1, columnspan=2)
-    tk.Label(win, text="Keterangan:").grid(row=2, column=0)
-    keterangan = ScrolledText(win, width=12, height=5)
-    keterangan.grid(row=2, column=1, columnspan=2, rowspan=4)
+    tk.Label(win, text="Waktu\t    :").grid(row=0, column=0, sticky='W')
+    tk.Spinbox(win, from_=0, to=23, textvariable=jam, width=2).grid(row=0,column=1, sticky="W")
+    tk.Spinbox(win, from_=0, to=59, textvariable=menit, width=2).grid(row=0,column=1, sticky="E")
+    tk.Label(win, text="Judul\t    :").grid(row=1, column=0, sticky='W')
+    tk.Entry(win, textvariable=judul).grid(row=1, column=1, columnspan=3)
+    tk.Label(win, text="Keterangan:").grid(row=2, column=0,sticky='W')
+    keterangan = ScrolledText(win, width=13, height=5,)
+    keterangan.grid(row=2, column=1, columnspan=5, rowspan=4)
     tanggal = str(cal.selection_get())
-    tk.Button(win,text="Tambah",command=lambda: addTodo(win, tanggal, jam, menit, judul, keterangan)).grid(row=6, column=0)
+    tk.Button(win,text="Tambah",command=lambda: addTodo(win, tanggal, jam, menit, judul, keterangan), width=7).grid(row=6, column=1, sticky='S')
+    tk.Button(win,text="Batal",command=win.destroy, width=7).grid(row=6, column=2, sticky='SE')
 
 
 def title():
@@ -109,7 +111,7 @@ s = ttk.Style()
 s.configure("Treeview", rowheight=16)
 
 # Membuat calendar
-cal = Calendar(root,font="Arial 14",selectmode="day",local="id_ID",cursor="hand1")
+cal = Calendar(root,font="Arial 14",selectmode="day",locale="id_ID",cursor="hand2")
 cal.grid(row=0, column=0, sticky="N", rowspan=8)
 cal.bind("<<CalendarSelected>>", ListTodo)
 tanggal = str(cal.selection_get())
