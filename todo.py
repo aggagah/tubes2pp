@@ -5,6 +5,8 @@ from tkinter.scrolledtext import ScrolledText
 from tkinter import messagebox
 from time import strftime
 from ttkthemes import ThemedStyle
+import getpass
+
 
 todos = {}
 
@@ -46,12 +48,12 @@ def delTodo():
     tanggal = str(cal.selection_get())
     selectedItem = treev.focus()
 
-    ms = tk.messagebox.askquestion("Delete todo","Yakin hapus todo?",icon="question")
+    ms = tk.messagebox.askquestion("Delete ToDo","Yakin hapus ToDo?",icon="question")
     if ms == "yes":
         todos[tanggal].pop(treev.item(selectedItem)["text"])
-        tk.messagebox.showinfo("Delete todo", "Todo berhasil dihapus")
+        tk.messagebox.showinfo("Delete ToDo", "ToDo berhasil dihapus")
     else:
-        tk.messagebox.showinfo("Delete todo", "Todo batal dihapus")
+        tk.messagebox.showinfo("Delete ToDo", "ToDo batal dihapus")
     ListTodo()
 
 
@@ -100,21 +102,19 @@ def AddForm():
 
 
 def title():
-    waktu = strftime("$H:$M")
+    waktu = strftime("%H:%M")
     tanggal = str(cal.selection_get())
-    root.title(tanggal + " | " + waktu + " | Calenderku")
+    root.title(tanggal + " | " + waktu + " | Kalenderku ")
 
 
 root = tk.Tk()
-root.title("Tubes 2: Calenderku")
 s = ttk.Style()
 s.configure("Treeview", rowheight=16)
-
 # Membuat calendar
-cal = Calendar(root,font="Consolas 14",selectmode="day",locale="id_ID",cursor="hand2")
+cal = Calendar(root, font="Calibri 14", selectmode="day", locale="id_ID", cursor="hand2")
 cal.grid(row=0, column=0, sticky="N", rowspan=8)
 cal.bind("<<CalendarSelected>>", ListTodo)
-cal.configure(background='#536976', headersbackground='#bbd2c5', normalbackground='#ffffff')
+cal.configure(foreground='#424242', background='#f5f5f5', headersbackground='#f5f5f5', headersforeground='#424242', normalbackground='#fafafa', normalforeground='#424242', selectforeground='#1e88e5', selectbackground='#fafafa', weekendbackground='#f8f8f8', weekendforeground='#e57373', othermonthbackground='#eeeeee', othermonthwebackground='#eeeeee', othermonthweforeground='#ef9a9a')
 tanggal = str(cal.selection_get())
 
 # Membuat widget di sebelah kanan dari calendar
@@ -133,20 +133,22 @@ treev.column("1", width=100)
 treev.heading("1", text="JAM")
 treev.heading("2", text="Judul")
 
+
+
 # Membuat button "Tambah"
-btnAdd = tk.Button(root, text="Tambah", width=20, command=AddForm)
+btnAdd = tk.Button(root, text="Tambah ToDo", width=20, command=AddForm, background='#fafafa', foreground='#424242', borderwidth=0.5)
 btnAdd.grid(row=4, column=1, sticky="N")
 # Membuat button "Hapus"
-btnDel = tk.Button(root, text="Hapus", width=20, command=delTodo)
+btnDel = tk.Button(root, text="Hapus", width=20, command=delTodo, background='#fafafa', foreground='#e57373', borderwidth=0.5)
 btnDel.grid(row=4, column=2, sticky="N")
 
 # Membuat button "Load"
-btnLoad = tk.Button(root, text="Load", width=20, command=LoadTodos)
+btnLoad = tk.Button(root, text="Load", width=20, command=LoadTodos, background='#fafafa', foreground='#424242', borderwidth=0.5)
 btnLoad.grid(row=6, column=1, sticky="S")
 
 # Membuat tombol "Save"
-btnSave = tk.Button(root, text="Save", width=20, command=SaveTodos)
+btnSave = tk.Button(root, text="Save", width=20, command=SaveTodos, background='#fafafa', foreground='#424242', borderwidth=0.5)
 btnSave.grid(row=6, column=2, sticky="S")
 
-
+title()
 root.mainloop()
