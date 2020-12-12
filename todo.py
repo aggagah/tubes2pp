@@ -4,6 +4,7 @@ from tkcalendar import Calendar
 from tkinter.scrolledtext import ScrolledText
 from tkinter import messagebox
 from time import strftime
+from ttkthemes import ThemedStyle
 
 todos = {}
 
@@ -78,7 +79,6 @@ def addTodo(win, key, jam, menit, judul, keterangan):
     win.destroy()
     ListTodo()
 
-
 # membuat function addForm
 def AddForm():
     win = tk.Toplevel()
@@ -106,14 +106,15 @@ def title():
 
 
 root = tk.Tk()
-root.title("Calenderku")
+root.title("Tubes 2: Calenderku")
 s = ttk.Style()
 s.configure("Treeview", rowheight=16)
 
 # Membuat calendar
-cal = Calendar(root,font="Arial 14",selectmode="day",locale="id_ID",cursor="hand2")
+cal = Calendar(root,font="Consolas 14",selectmode="day",locale="id_ID",cursor="hand2")
 cal.grid(row=0, column=0, sticky="N", rowspan=8)
 cal.bind("<<CalendarSelected>>", ListTodo)
+cal.configure(background='#536976', headersbackground='#bbd2c5', normalbackground='#ffffff')
 tanggal = str(cal.selection_get())
 
 # Membuat widget di sebelah kanan dari calendar
@@ -146,5 +147,6 @@ btnLoad.grid(row=6, column=1, sticky="S")
 # Membuat tombol "Save"
 btnSave = tk.Button(root, text="Save", width=20, command=SaveTodos)
 btnSave.grid(row=6, column=2, sticky="S")
+
 
 root.mainloop()
