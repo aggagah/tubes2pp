@@ -5,6 +5,7 @@ from tkinter.scrolledtext import ScrolledText
 from tkinter import messagebox
 from time import strftime
 import getpass
+import datetime
 
 
 todos = {}
@@ -106,15 +107,37 @@ def title():
     root.title(tanggal + " | " + waktu + " | Kalenderku ")
 
 
+# Membuat settingan waktu untuk sapaan
+def waktuLocal():
+    jamLocal = datetime.datetime.now().time()
+    jamLocal.hour
+    global waktu
+    if (jamLocal.hour>= 5 and jamLocal.hour <= 10) or (jamLocal.hour >=1 and jamLocal.hour < 5):
+        waktu = "Morning"
+    elif jamLocal.hour> 10 and jamLocal.hour <= 18:
+        waktu = "Afternoon"
+    elif jamLocal.hour > 18 or (jamLocal.hour > 0 and jamLocal.hour < 1):
+        waktu = "Night"
+    return waktu
+
 root = tk.Tk()
 s = ttk.Style()
 s.configure("Treeview", rowheight=19)
+
 # Membuat calendar
 cal = Calendar(root, font="Calibri 14", selectmode="day", locale="id_ID", cursor="hand2")
 cal.grid(row=0, column=0, sticky="N", rowspan=8, columnspan=2)
 cal.bind("<<CalendarSelected>>", ListTodo)
 cal.configure(foreground='#424242', background='#f5f5f5', headersbackground='#f5f5f5', headersforeground='#424242', normalbackground='#fafafa', normalforeground='#424242', selectforeground='#1e88e5', selectbackground='#fafafa', weekendbackground='#f8f8f8', weekendforeground='#e57373', othermonthbackground='#eeeeee', othermonthwebackground='#eeeeee', othermonthweforeground='#ef9a9a')
 tanggal = str(cal.selection_get())
+
+
+# Membuat sapaan
+waktu = ''
+username = getpass.getuser()
+sapaan = tk.Label(font='Cursive 14', text="Good {} {}.\nHow is it going?".format(waktuLocal(), username.title()))
+sapaan.grid(row=0, column=3, rowspan=2, columnspan=2)
+sapaan.configure(width=30, foreground='#424242')
 
 # Membuat widget di sebelah kanan dari calendar
 treev = ttk.Treeview(root)
@@ -136,18 +159,18 @@ treev.heading("2", text="Judul")
 
 
 # Membuat button "Tambah"
-btnAdd = tk.Button(root, text="Tambah ToDo", width=13, command=AddForm, background='#fafafa', foreground='#424242', borderwidth=0.5)
+btnAdd = tk.Button(root, text="Tambah ToDo", font='Arial 9 bold', width=13, command=AddForm, background='#fafafa', foreground='#424242', borderwidth=0.5)
 btnAdd.grid(row=8, column=0, sticky="W")
 # Membuat button "Hapus"
-btnDel = tk.Button(root, text="Hapus", width=10, command=delTodo, background='#fafafa', foreground='#e57373', borderwidth=0.5)
+btnDel = tk.Button(root, text="Hapus", font='Arial 9 bold', width=10, command=delTodo, background='#fafafa', foreground='#e57373', borderwidth=0.5)
 btnDel.grid(row=8, column=1, sticky="E")
 
 # Membuat button "Load"
-btnLoad = tk.Button(root, text="Load", width=10, command=LoadTodos, background='#fafafa', foreground='#424242', borderwidth=0.5)
+btnLoad = tk.Button(root, text="Load", font='Arial 9 bold', width=10, command=LoadTodos, background='#fafafa', foreground='#424242', borderwidth=0.5)
 btnLoad.grid(row=8, column=0, sticky="E")
 
 # Membuat tombol "Save"
-btnSave = tk.Button(root, text="Save", width=10, command=SaveTodos, background='#fafafa', foreground='#424242', borderwidth=0.5)
+btnSave = tk.Button(root, text="Save", font='Arial 9 bold', width=10, command=SaveTodos, background='#fafafa', foreground='#424242', borderwidth=0.5)
 btnSave.grid(row=8, column=1, sticky="W")
 
 title()
