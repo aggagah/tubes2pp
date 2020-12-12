@@ -4,7 +4,6 @@ from tkcalendar import Calendar
 from tkinter.scrolledtext import ScrolledText
 from tkinter import messagebox
 from time import strftime
-from ttkthemes import ThemedStyle
 import getpass
 
 
@@ -109,20 +108,21 @@ def title():
 
 root = tk.Tk()
 s = ttk.Style()
-s.configure("Treeview", rowheight=16)
+s.configure("Treeview", rowheight=19)
 # Membuat calendar
 cal = Calendar(root, font="Calibri 14", selectmode="day", locale="id_ID", cursor="hand2")
-cal.grid(row=0, column=0, sticky="N", rowspan=8)
+cal.grid(row=0, column=0, sticky="N", rowspan=8, columnspan=2)
 cal.bind("<<CalendarSelected>>", ListTodo)
 cal.configure(foreground='#424242', background='#f5f5f5', headersbackground='#f5f5f5', headersforeground='#424242', normalbackground='#fafafa', normalforeground='#424242', selectforeground='#1e88e5', selectbackground='#fafafa', weekendbackground='#f8f8f8', weekendforeground='#e57373', othermonthbackground='#eeeeee', othermonthwebackground='#eeeeee', othermonthweforeground='#ef9a9a')
 tanggal = str(cal.selection_get())
 
 # Membuat widget di sebelah kanan dari calendar
 treev = ttk.Treeview(root)
-treev.grid(row=0, column=1, sticky="WNE", rowspan=4, columnspan=2)
+treev.grid(row=2, column=3, sticky="WNE", rowspan=7, columnspan=2)
+
 # Membuat scroll y axis di sebelah kanan
 scrollBar = tk.Scrollbar(root, orient="vertical", command=treev.yview)
-scrollBar.grid(row=0, column=3, sticky="ENS", rowspan=4)
+scrollBar.grid(row=3, column=4, sticky="ENS", rowspan=5)
 
 # mendesign widget di sebelah kanan calendar
 treev.configure(yscrollcommand=scrollBar.set)
@@ -136,19 +136,19 @@ treev.heading("2", text="Judul")
 
 
 # Membuat button "Tambah"
-btnAdd = tk.Button(root, text="Tambah ToDo", width=20, command=AddForm, background='#fafafa', foreground='#424242', borderwidth=0.5)
-btnAdd.grid(row=4, column=1, sticky="N")
+btnAdd = tk.Button(root, text="Tambah ToDo", width=13, command=AddForm, background='#fafafa', foreground='#424242', borderwidth=0.5)
+btnAdd.grid(row=8, column=0, sticky="W")
 # Membuat button "Hapus"
-btnDel = tk.Button(root, text="Hapus", width=20, command=delTodo, background='#fafafa', foreground='#e57373', borderwidth=0.5)
-btnDel.grid(row=4, column=2, sticky="N")
+btnDel = tk.Button(root, text="Hapus", width=10, command=delTodo, background='#fafafa', foreground='#e57373', borderwidth=0.5)
+btnDel.grid(row=8, column=1, sticky="E")
 
 # Membuat button "Load"
-btnLoad = tk.Button(root, text="Load", width=20, command=LoadTodos, background='#fafafa', foreground='#424242', borderwidth=0.5)
-btnLoad.grid(row=6, column=1, sticky="S")
+btnLoad = tk.Button(root, text="Load", width=10, command=LoadTodos, background='#fafafa', foreground='#424242', borderwidth=0.5)
+btnLoad.grid(row=8, column=0, sticky="E")
 
 # Membuat tombol "Save"
-btnSave = tk.Button(root, text="Save", width=20, command=SaveTodos, background='#fafafa', foreground='#424242', borderwidth=0.5)
-btnSave.grid(row=6, column=2, sticky="S")
+btnSave = tk.Button(root, text="Save", width=10, command=SaveTodos, background='#fafafa', foreground='#424242', borderwidth=0.5)
+btnSave.grid(row=8, column=1, sticky="W")
 
 title()
 root.mainloop()
