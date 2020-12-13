@@ -12,6 +12,7 @@ todos = {}
 
 
 def detailTodo(cb=None):
+    tanggal = str(cal.selection_get())
     win = tk.Toplevel()
     win.wm_title("Detail todo")
     selectedItem = treev.focus()
