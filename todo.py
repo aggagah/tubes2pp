@@ -19,15 +19,15 @@ def detailTodo(cb=None):
     selectedIndex = treev.item(selectedItem)["text"]
     selectedTodo = todos[tanggal][selectedIndex]
     judul = tk.StringVar(value=selectedTodo["judul"])
-    tk.Label(win, text="Tanggal:").grid(row=0, column=0, sticky="N")
-    tk.Label(win,text="{} | {}".format(tanggal,selectedTodo["waktu"])).grid(row=0,column=1,sticky="E")
-    tk.Label(win, text="Judul:").grid(row=1, column=0, sticky="N")
-    tk.Entry(win, state="disabled", textvariable=judul).grid(row=1,column=1,sticky="E")
-    tk.Label(win, text="Keterangan:").grid(row=2, column=0, sticky="N")
+    tk.Label(win, text="Tanggal\t    :").grid(row=0, column=0, sticky="W")
+    tk.Label(win,text=(f"{tanggal} | {selectedTodo['waktu']}")).grid(row=0,column=1,sticky="W")
+    tk.Label(win, text="Judul\t    :").grid(row=1, column=0, columnspan=3, sticky="W")
+    tk.Entry(win, state="disabled", textvariable=judul).grid(row=1,column=1,sticky="W")
+    tk.Label(win, text="Keterangan:").grid(row=2, column=0, columnspan=5, rowspan=4, sticky="W")
     keterangan = ScrolledText(win, width=12, height=5)
     keterangan.grid(row=2, column=1, sticky="E")
     keterangan.insert(tk.INSERT, selectedTodo["keterangan"])
-    keterangan.configure(state="disabled")
+    keterangan.configure(state="disabled", width=13)
 
 
 def LoadTodos():
@@ -41,7 +41,7 @@ def LoadTodos():
 
 def SaveTodos():
     f = open("mytodo.dat", "w")
-    f.write(str(todos))
+    f.write(f"{str(todos)}\n")
     f.close()
 
 
