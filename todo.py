@@ -46,14 +46,17 @@ def SaveTodos():
 
 def delTodo():
     tanggal = str(cal.selection_get())
-    selectedItem = treev.focus()
-
-    ms = tk.messagebox.askquestion("Delete ToDo","Yakin hapus ToDo?",icon="question")
-    if ms == "yes":
-        todos[tanggal].pop(treev.item(selectedItem)["text"])
-        tk.messagebox.showinfo("Delete ToDo", "ToDo berhasil dihapus")
+    if tanggal in todos:
+        tanggal = str(cal.selection_get())
+        selectedItem = treev.focus()
+        ms = tk.messagebox.askquestion("Delete ToDo","Yakin hapus ToDo?",icon="question")
+        if ms == "yes":
+            todos[tanggal].pop(treev.item(selectedItem)["text"])
+            tk.messagebox.showinfo("Delete ToDo", "ToDo berhasil dihapus")
+        else:
+            tk.messagebox.showinfo("Delete ToDo", "ToDo batal dihapus")
     else:
-        tk.messagebox.showinfo("Delete ToDo", "ToDo batal dihapus")
+        tk.messagebox.showinfo("Delete ToDo", "Tidak ada ToDo tersedia untuk dihapus!", icon='warning')
     ListTodo()
 
 
@@ -125,7 +128,7 @@ s = ttk.Style()
 s.configure("Treeview", rowheight=19)
 
 # Membuat calendar
-cal = Calendar(root, font="Calibri 14", selectmode="day", locale="id_ID", cursor="hand2")
+cal = Calendar(root, font="Calibri 14", selectmode="day", locale="id_ID", cursor="hand2", showweeknumbers=False)
 cal.grid(row=0, column=0, sticky="N", rowspan=8, columnspan=2)
 cal.bind("<<CalendarSelected>>", ListTodo)
 cal.configure(foreground='#424242', background='#f5f5f5', headersbackground='#f5f5f5', headersforeground='#424242', normalbackground='#fafafa', normalforeground='#424242', selectforeground='#1e88e5', selectbackground='#fafafa', weekendbackground='#f8f8f8', weekendforeground='#e57373', othermonthbackground='#eeeeee', othermonthwebackground='#eeeeee', othermonthweforeground='#ef9a9a')
@@ -159,18 +162,18 @@ treev.heading("2", text="Judul")
 
 
 # Membuat button "Tambah"
-btnAdd = tk.Button(root, text="Tambah ToDo", font='Arial 9 bold', width=13, command=AddForm, background='#fafafa', foreground='#424242', borderwidth=0.5)
+btnAdd = tk.Button(root, text="Add ToDo", font='Arial 9 bold', width=10, command=AddForm, background='#eeeeee', foreground='#424242', borderwidth=0.5)
 btnAdd.grid(row=8, column=0, sticky="W")
 # Membuat button "Hapus"
-btnDel = tk.Button(root, text="Hapus", font='Arial 9 bold', width=10, command=delTodo, background='#fafafa', foreground='#e57373', borderwidth=0.5)
+btnDel = tk.Button(root, text="Delete", font='Arial 9 bold', width=10, command=delTodo, background='#eeeeee', foreground='#e57373', borderwidth=0.5)
 btnDel.grid(row=8, column=1, sticky="E")
 
 # Membuat button "Load"
-btnLoad = tk.Button(root, text="Load", font='Arial 9 bold', width=10, command=LoadTodos, background='#fafafa', foreground='#424242', borderwidth=0.5)
+btnLoad = tk.Button(root, text="Load", font='Arial 9 bold', width=10, command=LoadTodos, background='#eeeeee', foreground='#424242', borderwidth=0.5)
 btnLoad.grid(row=8, column=0, sticky="E")
 
 # Membuat tombol "Save"
-btnSave = tk.Button(root, text="Save", font='Arial 9 bold', width=10, command=SaveTodos, background='#fafafa', foreground='#424242', borderwidth=0.5)
+btnSave = tk.Button(root, text="Save", font='Arial 9 bold', width=10, command=SaveTodos, background='#eeeeee', foreground='#424242', borderwidth=0.5)
 btnSave.grid(row=8, column=1, sticky="W")
 
 title()
